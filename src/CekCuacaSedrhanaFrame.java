@@ -8,9 +8,10 @@ import java.util.ArrayList;
 
 public class CekCuacaSedrhanaFrame extends javax.swing.JFrame {
 
-    /**
-     * Creates new form CekCuacaSedrhanaFrame
-     */
+    private static final String API_KEY = "YOUR_API_KEY"; // Gantikan dengan API key dari OpenWeather
+    private DefaultTableModel tableModel;
+    private ArrayList<String> favoriteCities = new ArrayList<>();
+    
     public CekCuacaSedrhanaFrame() {
         initComponents();
     }
