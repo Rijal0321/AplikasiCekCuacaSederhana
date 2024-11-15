@@ -268,17 +268,30 @@ public class CekCuacaSedrhanaFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void saveCSVButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveCSVButtonActionPerformed
-        try (PrintWriter writer = new PrintWriter(new File("weather_data.csv"))) {
+    JFileChooser fileChooser = new JFileChooser();
+    fileChooser.setDialogTitle("Simpan Data Cuaca ke CSV");
+    fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+    int userSelection = fileChooser.showSaveDialog(this);
+    if (userSelection == JFileChooser.APPROVE_OPTION) {
+        File fileToSave = fileChooser.getSelectedFile();
+        // Tambahkan .csv jika pengguna tidak menyertakan ekstensi
+        if (!fileToSave.getAbsolutePath().endsWith(".csv")) {
+            fileToSave = new File(fileToSave.getAbsolutePath() + ".csv");
+        }
+
+        try (PrintWriter writer = new PrintWriter(fileToSave)) {
             for (int i = 0; i < tableModel.getRowCount(); i++) {
                 for (int j = 0; j < tableModel.getColumnCount(); j++) {
                     writer.print(tableModel.getValueAt(i, j) + (j < tableModel.getColumnCount() - 1 ? "," : ""));
                 }
                 writer.println();
             }
-            JOptionPane.showMessageDialog(this, "Data cuaca berhasil disimpan ke weather_data.csv");
+            JOptionPane.showMessageDialog(this, "Data cuaca berhasil disimpan ke " + fileToSave.getAbsolutePath());
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(this, "Gagal menyimpan ke file CSV: " + e.getMessage());
         }
+    }
     }//GEN-LAST:event_saveCSVButtonActionPerformed
 
     private void loadCSVButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadCSVButtonActionPerformed
