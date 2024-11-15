@@ -295,16 +295,26 @@ public class CekCuacaSedrhanaFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_saveCSVButtonActionPerformed
 
     private void loadCSVButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadCSVButtonActionPerformed
-        try (BufferedReader reader = new BufferedReader(new FileReader("weather_data.csv"))) {
+    JFileChooser fileChooser = new JFileChooser();
+    fileChooser.setDialogTitle("Muat Data Cuaca dari CSV");
+    fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+    int userSelection = fileChooser.showOpenDialog(this);
+    if (userSelection == JFileChooser.APPROVE_OPTION) {
+        File fileToLoad = fileChooser.getSelectedFile();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileToLoad))) {
             String line;
-            tableModel.setRowCount(0); // Hapus data yang ada
+            tableModel.setRowCount(0); // Hapus data yang ada di tabel sebelum memuat
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(",");
                 tableModel.addRow(data);
             }
+            JOptionPane.showMessageDialog(this, "Data cuaca berhasil dimuat dari " + fileToLoad.getAbsolutePath());
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "Gagal memuat data dari CSV: " + e.getMessage());
         }
+    }
     }//GEN-LAST:event_loadCSVButtonActionPerformed
 
     private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
