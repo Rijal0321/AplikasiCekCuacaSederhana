@@ -71,6 +71,11 @@ public class CekCuacaSedrhanaFrame extends javax.swing.JFrame {
         loadCSVButton.setText("Muat CSV");
 
         deleteButton.setText("Hapus");
+        deleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteButtonActionPerformed(evt);
+            }
+        });
 
         exitButton.setText("Keluar");
 
@@ -238,6 +243,14 @@ public class CekCuacaSedrhanaFrame extends javax.swing.JFrame {
             favoriteCitiesComboBox.addItem(city);
         }
     }//GEN-LAST:event_saveFavoriteButtonActionPerformed
+
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
+        String selectedCity = (String) favoriteCitiesComboBox.getSelectedItem();
+        if (selectedCity != null) {
+            favoriteCities.remove(selectedCity);
+            favoriteCitiesComboBox.removeItem(selectedCity);
+        }
+    }//GEN-LAST:event_deleteButtonActionPerformed
 
     /**
      * @param args the command line arguments
