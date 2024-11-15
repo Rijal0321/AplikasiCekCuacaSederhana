@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class CekCuacaSedrhanaFrame extends javax.swing.JFrame {
 
-    private static final String API_KEY = "YOUR_API_KEY"; // Gantikan dengan API key dari OpenWeather
+    private static final String API_KEY = "ced11d51dc6d61f2d3733198413ce9b5"; // Gantikan dengan API key dari OpenWeather
     private DefaultTableModel tableModel;
     private ArrayList<String> favoriteCities = new ArrayList<>();
     
