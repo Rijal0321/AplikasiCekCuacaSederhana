@@ -51,6 +51,12 @@ public class CekCuacaSedrhanaFrame extends javax.swing.JFrame {
         cityFavoriteLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cityFavoriteLabel.setText("Kota Favorit");
 
+        favoriteCitiesComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                favoriteCitiesComboBoxActionPerformed(evt);
+            }
+        });
+
         checkWeatherButton.setText("Cek Cuaca");
         checkWeatherButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -233,7 +239,6 @@ public class CekCuacaSedrhanaFrame extends javax.swing.JFrame {
             double temperature = obj.getJSONObject("main").getDouble("temp");
             String icon = obj.getJSONArray("weather").getJSONObject(0).getString("icon");
 
-            cityNameLabel.setText("Cuaca di " + cityName);
             weatherIconLabel.setIcon(new ImageIcon(new URL("http://openweathermap.org/img/wn/" + icon + "@2x.png")));
 
             // Tambahkan ke tabel
@@ -245,18 +250,20 @@ public class CekCuacaSedrhanaFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_checkWeatherButtonActionPerformed
 
     private void saveFavoriteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveFavoriteButtonActionPerformed
-        String city = cityTextField.getText().trim();
-        if (!city.isEmpty() && !favoriteCities.contains(city)) {
-            favoriteCities.add(city);
-            favoriteCitiesComboBox.addItem(city);
-        }
+    String city = cityTextField.getText().trim();
+    if (!city.isEmpty() && !favoriteCities.contains(city)) {
+        favoriteCities.add(city);
+        favoriteCitiesComboBox.addItem(city);
+        cityTextField.setText(""); // Reset input text field after saving
+    }
     }//GEN-LAST:event_saveFavoriteButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
-        String selectedCity = (String) favoriteCitiesComboBox.getSelectedItem();
-        if (selectedCity != null) {
-            favoriteCities.remove(selectedCity);
-            favoriteCitiesComboBox.removeItem(selectedCity);
+        int selectedRow = weatherTable.getSelectedRow();
+        if (selectedRow != -1) {
+            tableModel.removeRow(selectedRow);
+        } else {
+            JOptionPane.showMessageDialog(this, "Pilih baris untuk dihapus.");
         }
     }//GEN-LAST:event_deleteButtonActionPerformed
 
@@ -313,6 +320,13 @@ public class CekCuacaSedrhanaFrame extends javax.swing.JFrame {
     private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
     System.exit(0);
     }//GEN-LAST:event_exitButtonActionPerformed
+
+    private void favoriteCitiesComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_favoriteCitiesComboBoxActionPerformed
+        String selectedCity = (String) favoriteCitiesComboBox.getSelectedItem();
+        if (selectedCity != null) {
+            cityTextField.setText(selectedCity); // Update hanya textField
+        }
+    }//GEN-LAST:event_favoriteCitiesComboBoxActionPerformed
 
     /**
      * @param args the command line arguments
