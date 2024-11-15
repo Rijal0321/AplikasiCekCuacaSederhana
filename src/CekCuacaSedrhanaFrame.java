@@ -88,6 +88,11 @@ public class CekCuacaSedrhanaFrame extends javax.swing.JFrame {
         });
 
         exitButton.setText("Keluar");
+        exitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitButtonActionPerformed(evt);
+            }
+        });
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gambar Cuaca", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
 
@@ -288,6 +293,10 @@ public class CekCuacaSedrhanaFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Gagal memuat data dari CSV: " + e.getMessage());
         }
     }//GEN-LAST:event_loadCSVButtonActionPerformed
+
+    private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
+    System.exit(0);
+    }//GEN-LAST:event_exitButtonActionPerformed
 
     /**
      * @param args the command line arguments
