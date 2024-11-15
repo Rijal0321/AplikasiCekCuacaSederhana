@@ -67,6 +67,11 @@ public class CekCuacaSedrhanaFrame extends javax.swing.JFrame {
         });
 
         saveCSVButton.setText("Simpan CSV");
+        saveCSVButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveCSVButtonActionPerformed(evt);
+            }
+        });
 
         loadCSVButton.setText("Muat CSV");
 
@@ -251,6 +256,20 @@ public class CekCuacaSedrhanaFrame extends javax.swing.JFrame {
             favoriteCitiesComboBox.removeItem(selectedCity);
         }
     }//GEN-LAST:event_deleteButtonActionPerformed
+
+    private void saveCSVButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveCSVButtonActionPerformed
+        try (PrintWriter writer = new PrintWriter(new File("weather_data.csv"))) {
+            for (int i = 0; i < tableModel.getRowCount(); i++) {
+                for (int j = 0; j < tableModel.getColumnCount(); j++) {
+                    writer.print(tableModel.getValueAt(i, j) + (j < tableModel.getColumnCount() - 1 ? "," : ""));
+                }
+                writer.println();
+            }
+            JOptionPane.showMessageDialog(this, "Data cuaca berhasil disimpan ke weather_data.csv");
+        } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(this, "Gagal menyimpan ke file CSV: " + e.getMessage());
+        }
+    }//GEN-LAST:event_saveCSVButtonActionPerformed
 
     /**
      * @param args the command line arguments
