@@ -60,6 +60,11 @@ public class CekCuacaSedrhanaFrame extends javax.swing.JFrame {
         });
 
         saveFavoriteButton.setText("Simpan Kota Favorit");
+        saveFavoriteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveFavoriteButtonActionPerformed(evt);
+            }
+        });
 
         saveCSVButton.setText("Simpan CSV");
 
@@ -225,6 +230,14 @@ public class CekCuacaSedrhanaFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Gagal mengambil data cuaca: " + e.getMessage());
         }
     }//GEN-LAST:event_checkWeatherButtonActionPerformed
+
+    private void saveFavoriteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveFavoriteButtonActionPerformed
+        String city = cityTextField.getText().trim();
+        if (!city.isEmpty() && !favoriteCities.contains(city)) {
+            favoriteCities.add(city);
+            favoriteCitiesComboBox.addItem(city);
+        }
+    }//GEN-LAST:event_saveFavoriteButtonActionPerformed
 
     /**
      * @param args the command line arguments
