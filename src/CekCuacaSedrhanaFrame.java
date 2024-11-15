@@ -53,6 +53,11 @@ public class CekCuacaSedrhanaFrame extends javax.swing.JFrame {
         cityFavoriteLabel.setText("Kota Favorit");
 
         checkWeatherButton.setText("Cek Cuaca");
+        checkWeatherButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkWeatherButtonActionPerformed(evt);
+            }
+        });
 
         saveFavoriteButton.setText("Simpan Kota Favorit");
 
@@ -181,6 +186,45 @@ public class CekCuacaSedrhanaFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void checkWeatherButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkWeatherButtonActionPerformed
+        String city = cityTextField.getText().trim();
+        if (city.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Masukkan nama kota terlebih dahulu.");
+            return;
+        }
+
+        try {
+            String urlString = String.format("http://api.openweathermap.org/data/2.5/weather?q=%s&appid=%s&units=metric", city, API_KEY);
+            URL url = new URL(urlString);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.connect();
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            StringBuilder json = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                json.append(line);
+            }
+            reader.close();
+
+            JSONObject obj = new JSONObject(json.toString());
+            String cityName = obj.getString("name");
+            String weather = obj.getJSONArray("weather").getJSONObject(0).getString("description");
+            double temperature = obj.getJSONObject("main").getDouble("temp");
+            String icon = obj.getJSONArray("weather").getJSONObject(0).getString("icon");
+
+            cityNameLabel.setText("Cuaca di " + cityName);
+            weatherIconLabel.setIcon(new ImageIcon(new URL("http://openweathermap.org/img/wn/" + icon + "@2x.png")));
+
+            // Tambahkan ke tabel
+            tableModel.addRow(new Object[]{cityName, weather, temperature + " °C", new java.util.Date()});
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Gagal mengambil data cuaca: " + e.getMessage());
+        }
+    }//GEN-LAST:event_checkWeatherButtonActionPerformed
 
     /**
      * @param args the command line arguments
