@@ -74,6 +74,11 @@ public class CekCuacaSedrhanaFrame extends javax.swing.JFrame {
         });
 
         loadCSVButton.setText("Muat CSV");
+        loadCSVButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loadCSVButtonActionPerformed(evt);
+            }
+        });
 
         deleteButton.setText("Hapus");
         deleteButton.addActionListener(new java.awt.event.ActionListener() {
@@ -270,6 +275,19 @@ public class CekCuacaSedrhanaFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Gagal menyimpan ke file CSV: " + e.getMessage());
         }
     }//GEN-LAST:event_saveCSVButtonActionPerformed
+
+    private void loadCSVButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadCSVButtonActionPerformed
+        try (BufferedReader reader = new BufferedReader(new FileReader("weather_data.csv"))) {
+            String line;
+            tableModel.setRowCount(0); // Hapus data yang ada
+            while ((line = reader.readLine()) != null) {
+                String[] data = line.split(",");
+                tableModel.addRow(data);
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Gagal memuat data dari CSV: " + e.getMessage());
+        }
+    }//GEN-LAST:event_loadCSVButtonActionPerformed
 
     /**
      * @param args the command line arguments
