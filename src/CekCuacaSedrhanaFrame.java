@@ -14,6 +14,7 @@ public class CekCuacaSedrhanaFrame extends javax.swing.JFrame {
     
     public CekCuacaSedrhanaFrame() {
         initComponents();
+        tableModel = (DefaultTableModel) weatherTable.getModel();
     }
 
     /**
