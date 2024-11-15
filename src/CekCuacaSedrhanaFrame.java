@@ -1,12 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.event.*;
+import java.io.*;
+import java.net.*;
+import org.json.JSONObject;
+import java.util.ArrayList;
 
-/**
- *
- * @author User
- */
 public class CekCuacaSedrhanaFrame extends javax.swing.JFrame {
 
     /**
