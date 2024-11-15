@@ -1,10 +1,9 @@
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import java.awt.event.*;
-import java.io.*;
-import java.net.*;
-import org.json.JSONObject;
-import java.util.ArrayList;
+import javax.swing.*; 
+import javax.swing.table.DefaultTableModel; 
+import java.io.*; 
+import java.net.*; 
+import java.util.ArrayList; 
+import org.json.JSONObject; 
 
 public class CekCuacaSedrhanaFrame extends javax.swing.JFrame {
 
